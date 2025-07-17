@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { getUsers, deleteUser } from "../api/userApi";
+import { getUsers, deleteUser } from "../api/serviceApi";
+import { useAuth } from "../context/AuthContext";
 
 export function UserCard() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const { userId } = useAuth();
   const navigate = useNavigate();
 
   const fetchUsers = async () => {
@@ -53,7 +55,7 @@ export function UserCard() {
       />
       <Grid container spacing={3}>
         {filteredUsers.map((user) => (
-          <Grid item xs={12} sm={6} md={4} key={user.id}>
+          <Grid key={user.id}>
             <Card>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
@@ -72,12 +74,14 @@ export function UserCard() {
               </CardContent>
               <CardActions>
                 <IconButton
+                  disabled={userId != user.id}
                   color="primary"
                   onClick={() => navigate(`/edit-user/${user.id}`)}
                 >
                   <EditIcon />
                 </IconButton>
                 <IconButton
+                  disabled={userId != user.id}
                   color="error"
                   onClick={() => handleDelete(user.id)}
                 >

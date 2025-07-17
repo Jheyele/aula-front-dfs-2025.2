@@ -22,21 +22,21 @@ export function LandingPage() {
           </Typography>
 
           <Grid container spacing={4} mt={4} justifyContent="center">
-            <Grid item xs={12} sm={4}>
+            <Grid>
               <PersonIcon sx={{ fontSize: 50, color: "primary.main" }} />
               <Typography variant="h6" mt={2}>Gestão de Usuários</Typography>
               <Typography variant="body2" color="text.secondary">
                 
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid>
               <CodeIcon sx={{ fontSize: 50, color: "secondary.main" }} />
               <Typography variant="h6" mt={2}>Tecnologias Modernas</Typography>
               <Typography variant="body2" color="text.secondary">
                 
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid>
               <DevicesIcon sx={{ fontSize: 50, color: "success.main" }} />
               <Typography variant="h6" mt={2}>Responsivo</Typography>
               <Typography variant="body2" color="text.secondary">

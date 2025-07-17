@@ -1,9 +1,11 @@
-import { Box, Button, Container, FormControlLabel, Paper, Switch, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, FormControlLabel, IconButton, Paper, Switch, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { createUser, getUserById, updateUser } from "../api/userApi";
+import { createUser, getUserById, updateUser } from "../api/serviceApi";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export function UserForm() {
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const [form, setForm] = useState({
@@ -26,7 +28,7 @@ export function UserForm() {
     } else {
       await createUser(form);
     }
-    navigate("/");
+    navigate("/users");
   };
 
   return (
@@ -41,8 +43,17 @@ export function UserForm() {
           onChange={(e) => setForm({ ...form, phone: e.target.value })} />
         <TextField label="Email" fullWidth margin="normal" value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        <TextField label="Senha" fullWidth type="password" margin="normal" value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })} />
+        <TextField label="Senha" fullWidth type={show ? 'text' : 'password'} margin="normal" value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })} 
+          slotProps={{
+                            input: {
+                            endAdornment: (
+                                <IconButton onClick={() => setShow(!show)}>
+                                    {show ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            ),
+                            }
+                        }}/>
         <FormControlLabel label="Admin" control={
           <Switch checked={form.isAdmin}
             onChange={(e) => setForm({ ...form, isAdmin: e.target.checked })} />} />
